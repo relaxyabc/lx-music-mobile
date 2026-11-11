@@ -49,7 +49,9 @@ react {
 
     /* Hermes Commands */
     //   The hermes compiler command to run. By default it is 'hermesc'
-    // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
+    // NOTE: 本机安全软件按路径拦截 node_modules/.../hermesc.exe 写文件（改名副本可用），
+    //       因此把 hermesc 及其 DLL 复制到 android/tools/ 并改名 hermesc_x.exe 供构建使用
+    hermesCommand = "$rootDir/tools/hermesc_x.exe"
     //
     //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
     // hermesFlags = ["-O", "-output-source-map"]

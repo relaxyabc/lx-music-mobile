@@ -26,3 +26,13 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+allprojects {
+    repositories {
+        // 本地仓库兜底：国内访问 jitpack.io 不稳定，com.github.* 构件预先放置在 local-m2
+        maven { url = uri("${rootDir}/local-m2") }
+        // 国内镜像（直连可用，不依赖代理）：google() 与 mavenCentral 的对应镜像
+        maven { url = uri("https://maven.aliyun.com/repository/google") }
+        maven { url = uri("https://maven.aliyun.com/repository/public") }
+    }
+}

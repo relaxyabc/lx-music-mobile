@@ -1,6 +1,7 @@
 import { getData, saveData, getAllKeys, removeDataMultiple, saveDataMultiple, removeData, getDataMultiple } from '@/plugins/storage'
 import { DEFAULT_SETTING, LIST_IDS, storageDataPrefix, type NAV_ID_Type } from '@/config/constant'
 import { throttle } from './common'
+import type { GitSourceConfig } from '@/core/gitSource/types'
 // import { gzip, ungzip } from '@/utils/nativeModules/gzip'
 // import { readFile, writeFile, temporaryDirectoryPath, unlink } from '@/utils/fs'
 // import { isNotificationsEnabled, openNotificationPermissionActivity, shareText } from '@/utils/nativeModules/utils'
@@ -27,6 +28,7 @@ const syncHostHistoryPrefix = storageDataPrefix.syncHostHistory
 const listPrefix = storageDataPrefix.list
 const dislikeListPrefix = storageDataPrefix.dislikeList
 const userApiPrefix = storageDataPrefix.userApi
+const gitSourcePrefix = storageDataPrefix.gitSource
 const openStoragePathPrefix = storageDataPrefix.openStoragePath
 const selectedManagedFolderPrefix = storageDataPrefix.selectedManagedFolder
 
@@ -589,4 +591,16 @@ export const setUserApiAllowShowUpdateAlert = async(id: string, enable: boolean)
   if (!targetApi) return
   targetApi.allowShowUpdateAlert = enable
   await saveData(userApiPrefix, userApis)
+}
+
+// Git 音源仓库配置
+export const getGitSourceConfig = async(): Promise<GitSourceConfig | null> => {
+  return await getData<GitSourceConfig>(gitSourcePrefix) ?? null
+}
+export const saveGitSourceConfig = async(config: GitSourceConfig | null) => {
+  if (config == null) {
+    await removeData(gitSourcePrefix)
+  } else {
+    await saveData(gitSourcePrefix, config)
+  }
 }

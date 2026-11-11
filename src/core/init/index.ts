@@ -1,4 +1,4 @@
-import { initSetting, showPactModal } from '@/core/common'
+import { initSetting } from '@/core/common'
 import registerPlaybackService from '@/plugins/player/service'
 import initTheme from './theme'
 import initI18n from './i18n'
@@ -10,23 +10,16 @@ import initCommonState from './common'
 import { initDeeplink } from './deeplink'
 import { setApiSource } from '@/core/apiSource'
 import commonActions from '@/store/common/action'
-import settingState from '@/store/setting/state'
 import { checkUpdate } from '@/core/version'
 import { bootLog } from '@/utils/bootLog'
-import { cheatTip } from '@/utils/tools'
 
 let isFirstPush = true
 const handlePushedHomeScreen = async() => {
-  await cheatTip()
-  if (settingState.setting['common.isAgreePact']) {
-    if (isFirstPush) {
-      isFirstPush = false
-      void checkUpdate()
-      void initDeeplink()
-    }
-  } else {
-    if (isFirstPush) isFirstPush = false
-    showPactModal()
+  // 需求：去除首次启动的两个弹窗（谨防被骗提示 / 用户协议），视为已同意协议，直接进入应用
+  if (isFirstPush) {
+    isFirstPush = false
+    void checkUpdate()
+    void initDeeplink()
   }
 }
 

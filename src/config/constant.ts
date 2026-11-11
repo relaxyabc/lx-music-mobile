@@ -78,6 +78,8 @@ export const storageDataPrefix = {
   dislikeList: '@dislike_list',
 
   userApi: '@user_api__',
+
+  gitSource: '@git_source__',
 } as const
 
 // v0.x.x 版本的 data keys

@@ -59,6 +59,14 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+.dsh-ops/
+.dsh/
+.tmp-analysis/
+
+# 本机构建环境产物（依赖包本地镜像、hermesc 副本、测试 APK）
+android/local-m2/
+android/tools/
+dist-test/
 
 # Ruby / CocoaPods
 /ios/Pods/
